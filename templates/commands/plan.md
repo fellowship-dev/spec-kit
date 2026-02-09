@@ -1,95 +1,46 @@
 ---
-description: Execute the implementation planning workflow using the plan template to generate design artifacts.
-handoffs: 
-  - label: Create Tasks
+description: Create technical implementation plan from specification
+handoffs:
+  - label: Tasks
     agent: speckit.tasks
-    prompt: Break the plan into tasks
+    prompt: Generate task list
     send: true
-  - label: Create Checklist
+  - label: Checklist
     agent: speckit.checklist
-    prompt: Create a checklist for the following domain...
-scripts:
-  sh: scripts/bash/setup-plan.sh --json
-  ps: scripts/powershell/setup-plan.ps1 -Json
-agent_scripts:
-  sh: scripts/bash/update-agent-context.sh __AGENT__
-  ps: scripts/powershell/update-agent-context.ps1 -AgentType __AGENT__
+    prompt: Validate plan quality
 ---
 
-## User Input
+**INPUT**: `$ARGUMENTS`
 
-```text
-$ARGUMENTS
-```
+**OUTPUT CONSTRAINT**: plan.md must be **≤50 lines**. Be terse. No prose.
 
-You **MUST** consider the user input before proceeding (if not empty).
+## Steps
 
-## Outline
+1. **Setup**: Run `.specify/scripts/bash/setup-plan.sh --json`, parse FEATURE_SPEC, IMPL_PLAN, SPECS_DIR
 
-1. **Setup**: Run `{SCRIPT}` from repo root and parse JSON for FEATURE_SPEC, IMPL_PLAN, SPECS_DIR, BRANCH. For single quotes in args like "I'm Groot", use escape syntax: e.g 'I'\''m Groot' (or double-quote if possible: "I'm Groot").
+2. **Load context**:
+   - Read spec.md from FEATURE_SPEC
+   - Read `.specify/memory/constitution.md`
+   - Load plan template (already copied to IMPL_PLAN)
 
-2. **Load context**: Read FEATURE_SPEC and `/memory/constitution.md`. Load IMPL_PLAN template (already copied).
+3. **Fill plan.md** with:
+   - **Summary**: One paragraph - what + technical approach
+   - **Tech Stack**: Language, storage, testing, key deps (4-5 bullet points)
+   - **Constitution Check**: Table with pass/fail for each principle
+   - **Structure**: Key files/dirs to create/modify (code block)
+   - **Decisions**: Table of key choices + brief rationale
 
-3. **Execute plan workflow**: Follow the structure in IMPL_PLAN template to:
-   - Fill Technical Context (mark unknowns as "NEEDS CLARIFICATION")
-   - Fill Constitution Check section from constitution
-   - Evaluate gates (ERROR if violations unjustified)
-   - Phase 0: Generate research.md (resolve all NEEDS CLARIFICATION)
-   - Phase 1: Generate data-model.md, contracts/, quickstart.md
-   - Phase 1: Update agent context by running the agent script
-   - Re-evaluate Constitution Check post-design
+4. **Validate**:
+   - All constitution principles addressed
+   - Tech choices justified
+   - File structure concrete (no placeholders)
+   - If >50 lines, cut ruthlessly
 
-4. **Stop and report**: Command ends after Phase 2 planning. Report branch, IMPL_PLAN path, and generated artifacts.
+5. **Report**: Plan path, ready for `/speckit.tasks`
 
-## Phases
+## Rules
 
-### Phase 0: Outline & Research
-
-1. **Extract unknowns from Technical Context** above:
-   - For each NEEDS CLARIFICATION → research task
-   - For each dependency → best practices task
-   - For each integration → patterns task
-
-2. **Generate and dispatch research agents**:
-
-   ```text
-   For each unknown in Technical Context:
-     Task: "Research {unknown} for {feature context}"
-   For each technology choice:
-     Task: "Find best practices for {tech} in {domain}"
-   ```
-
-3. **Consolidate findings** in `research.md` using format:
-   - Decision: [what was chosen]
-   - Rationale: [why chosen]
-   - Alternatives considered: [what else evaluated]
-
-**Output**: research.md with all NEEDS CLARIFICATION resolved
-
-### Phase 1: Design & Contracts
-
-**Prerequisites:** `research.md` complete
-
-1. **Extract entities from feature spec** → `data-model.md`:
-   - Entity name, fields, relationships
-   - Validation rules from requirements
-   - State transitions if applicable
-
-2. **Generate API contracts** from functional requirements:
-   - For each user action → endpoint
-   - Use standard REST/GraphQL patterns
-   - Output OpenAPI/GraphQL schema to `/contracts/`
-
-3. **Agent context update**:
-   - Run `{AGENT_SCRIPT}`
-   - These scripts detect which AI agent is in use
-   - Update the appropriate agent-specific context file
-   - Add only new technology from current plan
-   - Preserve manual additions between markers
-
-**Output**: data-model.md, /contracts/*, quickstart.md, agent-specific file
-
-## Key rules
-
-- Use absolute paths
-- ERROR on gate failures or unresolved clarifications
+- Reference existing patterns in codebase
+- No research.md, data-model.md, or contracts/ - keep it in plan.md
+- Decisions table captures what would go in research docs
+- Structure section captures what would go in data-model
