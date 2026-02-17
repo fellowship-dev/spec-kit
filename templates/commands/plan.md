@@ -1,13 +1,5 @@
 ---
 description: Create technical implementation plan from specification
-handoffs:
-  - label: Tasks
-    agent: speckit.tasks
-    prompt: Generate task list
-    send: true
-  - label: Checklist
-    agent: speckit.checklist
-    prompt: Validate plan quality
 ---
 
 **INPUT**: `$ARGUMENTS`

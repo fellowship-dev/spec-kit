@@ -1,10 +1,5 @@
 ---
 description: Execute tasks from tasks.md
-handoffs:
-  - label: Analyze
-    agent: speckit.analyze
-    prompt: Check implementation consistency
-    send: true
 ---
 
 **INPUT**: `$ARGUMENTS`

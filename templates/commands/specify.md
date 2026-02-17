@@ -1,14 +1,5 @@
 ---
 description: Create feature specification from GitHub issue
-handoffs:
-  - label: Plan
-    agent: speckit.plan
-    prompt: Create technical plan
-    send: true
-  - label: Clarify
-    agent: speckit.clarify
-    prompt: Resolve open questions
-    send: true
 ---
 
 **INPUT**: `$ARGUMENTS`
