@@ -1,14 +1,5 @@
 ---
 description: Generate actionable task list from plan
-handoffs:
-  - label: Implement
-    agent: speckit.implement
-    prompt: Execute tasks
-    send: true
-  - label: Analyze
-    agent: speckit.analyze
-    prompt: Check consistency
-    send: true
 ---
 
 **INPUT**: `$ARGUMENTS`
