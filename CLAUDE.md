@@ -1,12 +1,12 @@
 # spec-kit — Fellowship Fork
 
-This is a fork of [github/spec-kit](https://github.com/github/spec-kit), intentionally diverged. We maintain our own flavor: tighter line limits, no prose, bash scripts included.
+This is a fork of [github/spec-kit](https://github.com/github/spec-kit). We maintain our own flavor: tighter line limits, no prose, bash scripts included.
 
 ## Fork Status
 
 - **Upstream**: `github/spec-kit`
-- **Commits behind upstream**: 252+ (intentional — we diverged significantly)
-- **Do NOT auto-merge upstream** — changes must be cherry-picked manually and reviewed
+- **Synced to**: v0.8.1 (2026-04-24) — 0 commits behind upstream
+- **Upstream syncs**: bulk syncs are permitted under CTO review; cherry-picks for smaller updates
 
 ## Consumer Repos
 
@@ -27,17 +27,25 @@ Consumer repos copy commands into `.claude/commands/` (e.g., `speckit.specify.md
 - If a consumer repo is drifted, the sync task opens a PR to update it
 - To update a consumer repo manually: copy updated command files into `.claude/commands/`
 
-## Upstream Cherry-Picks
+## Upstream Syncs
 
-- The tooling crew also checks `github/spec-kit` weekly for potentially relevant commits
-- A GitHub issue is created on this repo listing recommendations
-- Cherry-picks are **manual only** — review carefully before applying
-- Never auto-merge from upstream
+- The tooling crew checks `github/spec-kit` weekly for relevant commits
+- Small fixes/features: cherry-pick manually and review
+- Major version bumps: bulk sync PR under CTO review is acceptable
+- Consumer repos need a re-sync PR after any template changes here
 
 ## What Changed vs Upstream
 
-- Commands cut ~80%: original ~1,400 lines → this fork ~250 lines
-- Strict line limits: spec ≤50, plan ≤50, tasks ≤40
-- No prose: tasks are checkboxes, specs are bullets, plans are tables
-- Bash scripts included for branch creation and plan setup
-- Generic constitution template included
+Templates are currently at upstream v0.8.1 line counts (re-trimming tracked in [fellowship-dev/pylot#239](https://github.com/fellowship-dev/pylot/issues/239)):
+
+| Template | Current | Terse target |
+|----------|---------|--------------|
+| `specify.md` | 327 lines | ≤50 lines |
+| `plan.md` | 152 lines | ≤50 lines |
+| `tasks.md` | 203 lines | ≤40 lines |
+| `implement.md` | 201 lines | ≤40 lines |
+| `analyze.md` | 252 lines | ≤40 lines |
+
+Fork additions preserved from pre-v0.8.1:
+- Bash scripts for branch creation and plan setup
+- Generic constitution template
