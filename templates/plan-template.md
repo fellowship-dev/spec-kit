@@ -27,7 +27,7 @@ Gates derived from `.specify/memory/constitution.md`. MUST pass before Phase 0 a
 
 ```text
 specs/[###-feature]/
-├── plan.md         # this file
+├── plan.md         # this file (__SPECKIT_COMMAND_PLAN__ output)
 ├── research.md     # Phase 0
 ├── data-model.md   # Phase 1
 ├── quickstart.md   # Phase 1
