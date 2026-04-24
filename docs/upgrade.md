@@ -8,7 +8,8 @@
 
 | What to Upgrade | Command | When to Use |
 |----------------|---------|-------------|
-| **CLI Tool Only** | `uv tool install specify-cli --force --from git+https://github.com/github/spec-kit.git` | Get latest CLI features without touching project files |
+| **CLI Tool Only** | `uv tool install specify-cli --force --from git+https://github.com/github/spec-kit.git@vX.Y.Z` | Get latest CLI features without touching project files |
+| **CLI Tool Only (pipx)** | `pipx install --force git+https://github.com/github/spec-kit.git@vX.Y.Z` | Reinstall/upgrade a pipx-installed CLI to a specific release |
 | **Project Files** | `specify init --here --force --ai <your-agent>` | Update slash commands, templates, and scripts in your project |
 | **Both** | Run CLI upgrade, then project update | Recommended for major version updates |
 
@@ -20,16 +21,26 @@ The CLI tool (`specify`) is separate from your project files. Upgrade it to get 
 
 ### If you installed with `uv tool install`
 
+Upgrade to a specific release (check [Releases](https://github.com/github/spec-kit/releases) for the latest tag):
+
 ```bash
-uv tool install specify-cli --force --from git+https://github.com/github/spec-kit.git
+uv tool install specify-cli --force --from git+https://github.com/github/spec-kit.git@vX.Y.Z
 ```
 
 ### If you use one-shot `uvx` commands
 
-No upgrade needed—`uvx` always fetches the latest version. Just run your commands as normal:
+Specify the desired release tag:
 
 ```bash
-uvx --from git+https://github.com/github/spec-kit.git specify init --here --ai copilot
+uvx --from git+https://github.com/github/spec-kit.git@vX.Y.Z specify init --here --ai copilot
+```
+
+### If you installed with `pipx`
+
+Upgrade to a specific release:
+
+```bash
+pipx install --force git+https://github.com/github/spec-kit.git@vX.Y.Z
 ```
 
 ### Verify the upgrade
@@ -51,8 +62,8 @@ When Spec Kit releases new features (like new slash commands or updated template
 Running `specify init --here --force` will update:
 
 - ✅ **Slash command files** (`.claude/commands/`, `.github/prompts/`, etc.)
-- ✅ **Script files** (`.specify/scripts/`)
-- ✅ **Template files** (`.specify/templates/`)
+- ✅ **Script files** (`.specify/scripts/`) — **only with `--force`**; without it, only missing files are added
+- ✅ **Template files** (`.specify/templates/`) — **only with `--force`**; without it, only missing files are added
 - ✅ **Shared memory files** (`.specify/memory/`) - **⚠️ See warnings below**
 
 ### What stays safe?
@@ -74,7 +85,7 @@ Run this inside your project directory:
 specify init --here --force --ai <your-agent>
 ```
 
-Replace `<your-agent>` with your AI assistant. Refer to this list of [Supported AI Agents](../README.md#-supported-ai-agents)
+Replace `<your-agent>` with your AI coding agent. Refer to this list of [Supported AI Coding Agent Integrations](reference/integrations.md)
 
 **Example:**
 
@@ -92,7 +103,9 @@ Template files will be merged with existing content and may overwrite existing f
 Proceed? [y/N]
 ```
 
-With `--force`, it skips the confirmation and proceeds immediately.
+With `--force`, it skips the confirmation and proceeds immediately. It also **overwrites shared infrastructure files** (`.specify/scripts/` and `.specify/templates/`) with the latest versions from the installed Spec Kit release.
+
+Without `--force`, shared infrastructure files that already exist are skipped — the CLI will print a warning listing the skipped files so you know which ones were not updated.
 
 **Important: Your `specs/` directory is always safe.** The `--force` flag only affects template files (commands, scripts, templates, memory). Your feature specifications, plans, and tasks in `specs/` are never included in upgrade packages and cannot be overwritten.
 
@@ -124,13 +137,14 @@ Or use git to restore it:
 git restore .specify/memory/constitution.md
 ```
 
-### 2. Custom template modifications
+### 2. Custom script or template modifications
 
-If you customized any templates in `.specify/templates/`, the upgrade will overwrite them. Back them up first:
+If you customized files in `.specify/scripts/` or `.specify/templates/`, the `--force` flag will overwrite them. Back them up first:
 
 ```bash
-# Back up custom templates
+# Back up custom templates and scripts
 cp -r .specify/templates .specify/templates-backup
+cp -r .specify/scripts .specify/scripts-backup
 
 # After upgrade, merge your changes back manually
 ```
@@ -289,8 +303,9 @@ This tells Spec Kit which feature directory to use when creating specs, plans, a
 
    ```bash
    ls -la .claude/commands/      # Claude Code
-   ls -la .gemini/commands/       # Gemini
-   ls -la .cursor/commands/       # Cursor
+   ls -la .gemini/commands/      # Gemini
+   ls -la .cursor/skills/      # Cursor
+   ls -la .pi/prompts/           # Pi Coding Agent
    ```
 
 3. **Check agent-specific setup:**
@@ -398,7 +413,7 @@ The `specify` CLI tool is used for:
 - **Upgrades:** `specify init --here --force` to update templates and commands
 - **Diagnostics:** `specify check` to verify tool installation
 
-Once you've run `specify init`, the slash commands (like `/speckit.specify`, `/speckit.plan`, etc.) are **permanently installed** in your project's agent folder (`.claude/`, `.github/prompts/`, etc.). Your AI assistant reads these command files directly—no need to run `specify` again.
+Once you've run `specify init`, the slash commands (like `/speckit.specify`, `/speckit.plan`, etc.) are **permanently installed** in your project's agent folder (`.claude/`, `.github/prompts/`, `.pi/prompts/`, etc.). Your AI coding agent reads these command files directly—no need to run `specify` again.
 
 **If your agent isn't recognizing slash commands:**
 
@@ -410,6 +425,9 @@ Once you've run `specify init`, the slash commands (like `/speckit.specify`, `/s
 
    # For Claude
    ls -la .claude/commands/
+
+   # For Pi
+   ls -la .pi/prompts/
    ```
 
 2. **Restart your IDE/editor completely** (not just reload window)
