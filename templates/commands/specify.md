@@ -20,7 +20,9 @@ You **MUST** consider the user input before proceeding (if not empty).
 
 ## Pre-Execution
 
-Run `hooks.before_specify` from `.specify/extensions.yml` if present; otherwise skip.
+Check `.specify/extensions.yml` for `hooks.before_specify` entries:
+- For each executable hook, output the following based on its `optional` flag: prompt optional hooks, auto-execute mandatory hooks.
+- Skip if no hooks registered or file absent.
 
 ## Output constraint
 

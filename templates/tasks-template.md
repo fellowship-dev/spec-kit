@@ -27,7 +27,7 @@ description: "Task list template for feature implementation"
 
 Adjust based on `plan.md`'s Structure Decision.
 
-<!-- Replace the sample tasks below with real ones derived from plan.md + spec.md. -->
+<!-- Replace the sample tasks below with real ones derived from plan.md + spec.md (__SPECKIT_COMMAND_TASKS__). -->
 
 ## Phase 1: Setup
 
