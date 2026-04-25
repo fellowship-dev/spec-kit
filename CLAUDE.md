@@ -36,15 +36,7 @@ Consumer repos copy commands into `.claude/commands/` (e.g., `speckit.specify.md
 
 ## What Changed vs Upstream
 
-Templates are currently at upstream v0.8.1 line counts (re-trimming tracked in [fellowship-dev/pylot#239](https://github.com/fellowship-dev/pylot/issues/239)):
-
-| Template | Current | Terse target |
-|----------|---------|--------------|
-| `specify.md` | 327 lines | ≤50 lines |
-| `plan.md` | 152 lines | ≤50 lines |
-| `tasks.md` | 203 lines | ≤40 lines |
-| `implement.md` | 201 lines | ≤40 lines |
-| `analyze.md` | 252 lines | ≤40 lines |
+All lean preset templates are terse rewrites of upstream v0.8.1 (specify ≤50 lines, plan ≤50, tasks ≤40, implement ≤40, analyze ≤40).
 
 Fork additions preserved from pre-v0.8.1:
 - Bash scripts for branch creation and plan setup
