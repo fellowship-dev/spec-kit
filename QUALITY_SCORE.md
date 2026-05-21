@@ -1,6 +1,6 @@
 # Quality Score Report — fellowship-dev/spec-kit
 
-Last updated: 2026-05-19
+Last updated: 2026-05-21
 
 > Domain quality grades based on documentation freshness, test coverage, and code staleness.
 
@@ -16,7 +16,7 @@ Last updated: 2026-05-19
 
 ### CLI Core
 - **Grade**: C
-- **Last Updated**: 2026-04-24 (sync: upstream spec-kit v0.8.1 — 25 days ago)
+- **Last Updated**: 2026-04-24 (sync: upstream spec-kit v0.8.1 — 27 days ago)
 - **Signals**:
   - S1 (Code Structure Docs): ⚠️ Yellow — mentioned in AGENTS.md but no dedicated code-structure.md
   - S2 (FlowChad): N/A — not a frontend repo
@@ -28,7 +28,7 @@ Last updated: 2026-05-19
 
 ### Extensions System
 - **Grade**: C
-- **Last Updated**: 2026-04-24 (sync: 25 days ago)
+- **Last Updated**: 2026-04-24 (sync: 27 days ago)
 - **Signals**:
   - S1 (Code Structure Docs): ⚠️ Yellow — documented in AGENTS.md, not separate code-structure.md
   - S2 (FlowChad): N/A
@@ -40,11 +40,11 @@ Last updated: 2026-05-19
 
 ### Templates & Commands
 - **Grade**: C
-- **Last Updated**: 2026-04-30 (cherry-pick checklist — 19 days ago)
+- **Last Updated**: 2026-04-30 (cherry-pick checklist — 21 days ago)
 - **Signals**:
   - S1 (Code Structure Docs): ✅ Pass — documented in spec-driven.md and AGENTS.md
   - S2 (FlowChad): N/A
-  - S3 (Staleness): ✅ Pass — last commit 2026-04-30, 19 days ago
+  - S3 (Staleness): ✅ Pass — last commit 2026-04-30, 21 days ago
   - S4 (Open Issues): N/A — issues disabled
   - S5 (Test Coverage): ⚠️ Yellow — templates tested via integration, not unit tests
   - S6 (Hookshot): ❌ Fail — not configured
@@ -52,11 +52,11 @@ Last updated: 2026-05-19
 
 ### Documentation
 - **Grade**: B
-- **Last Updated**: 2026-04-24 (25 days ago)
+- **Last Updated**: 2026-04-24 (27 days ago)
 - **Signals**:
   - S1 (Code Structure Docs): ✅ Pass — docs/index.md and installation.md exist
   - S2 (FlowChad): N/A
-  - S3 (Staleness): ✅ Pass — last commit 2026-04-24, 25 days ago
+  - S3 (Staleness): ✅ Pass — last commit 2026-04-24, 27 days ago
   - S4 (Open Issues): N/A — issues disabled
   - S5 (Test Coverage): N/A — documentation doesn't require unit tests
   - S6 (Hookshot): ❌ Fail — not configured
@@ -64,11 +64,11 @@ Last updated: 2026-05-19
 
 ### Tests & QA
 - **Grade**: C
-- **Last Updated**: 2026-04-24 (25 days ago)
+- **Last Updated**: 2026-04-24 (27 days ago)
 - **Signals**:
   - S1 (Code Structure Docs): ⚠️ Yellow — test structure not explicitly documented
   - S2 (FlowChad): N/A
-  - S3 (Staleness): ✅ Pass — last commit 2026-04-24, 25 days ago
+  - S3 (Staleness): ✅ Pass — last commit 2026-04-24, 27 days ago
   - S4 (Open Issues): N/A — issues disabled
   - S5 (Test Coverage): ⚠️ Yellow — only test_extensions.py; no CLI unit tests
   - S6 (Hookshot): ❌ Fail — not configured
@@ -87,7 +87,7 @@ Last updated: 2026-05-19
 
 ## Tooling — Speckit Command Drift
 
-Checked 2026-05-19. Source of truth: `fellowship-dev/spec-kit/templates/commands/`.
+Checked 2026-05-21. Source of truth: `fellowship-dev/spec-kit/templates/commands/`.
 
 | Repo | Status | Commands drifted |
 |------|--------|-----------------|
@@ -118,3 +118,4 @@ Top concerns:
 | 2026-04-24 | daily sweep | All code domains crossed 60d threshold. CLI C, Extensions C, Templates C, Documentation B, Tests C |
 | 2026-05-18 | weekly sweep | S3 ✅ across all domains (upstream sync 2026-04-24 + cherry-pick 2026-04-30). S6 methodology corrected (N/A→applicable ❌). Grades unchanged at C/C/C/B/C. |
 | 2026-05-19 | daily sweep | 5 domains, 0 regressions, 0 improvements. Tooling section added: farmesa-v2 + inbox-angel all 7 commands drifted; rails-backend not installed; booster-pack + mtg-lotr current. |
+| 2026-05-21 | daily sweep | 5 domains, 0 regressions, 0 improvements. Staleness +2d across all domains. |
