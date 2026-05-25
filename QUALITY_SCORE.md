@@ -1,6 +1,6 @@
 # Quality Score Report — fellowship-dev/spec-kit
 
-Last updated: 2026-05-21
+Last updated: 2026-05-25
 
 > Domain quality grades based on documentation freshness, test coverage, and code staleness.
 
@@ -119,3 +119,4 @@ Top concerns:
 | 2026-05-18 | weekly sweep | S3 ✅ across all domains (upstream sync 2026-04-24 + cherry-pick 2026-04-30). S6 methodology corrected (N/A→applicable ❌). Grades unchanged at C/C/C/B/C. |
 | 2026-05-19 | daily sweep | 5 domains, 0 regressions, 0 improvements. Tooling section added: farmesa-v2 + inbox-angel all 7 commands drifted; rails-backend not installed; booster-pack + mtg-lotr current. |
 | 2026-05-21 | daily sweep | 5 domains, 0 regressions, 0 improvements. Staleness +2d across all domains. |
+| 2026-05-25 | daily sweep | 5 domains, 0 regressions, 0 improvements. Staleness +4d (CLI/Extensions/Documentation/Tests: 31d, Templates: 25d). Upstream sync dispatched via dogfooded-skills#62. |
