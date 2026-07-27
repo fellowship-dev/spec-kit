@@ -5,7 +5,7 @@
 
 ## Summary
 
-All 9 command files in `templates/commands/` diverge from upstream. The divergences fall into five categories, each worth considering for upstream contribution.
+The command files in `templates/commands/` were compared against upstream. The divergences fall into five categories (note: Section 4 was initially mis-reported; see correction inline).
 
 ## 1. Extension Hook System (affects all commands except `checklist.md`)
 
@@ -41,22 +41,22 @@ fellowship-dev/spec-kit has verbose, explicit instructions covering:
 
 **Cherry-pick recommendation**: This guardrail prevents scope creep in the constitution command. Strong upstream contribution candidate.
 
-## 4. `tasks.md` — Dedicated Setup Script
+## 4. `tasks.md` — No Meaningful Divergence
 
-**fellowship-dev divergence.** fellowship-dev references `scripts/bash/setup-tasks.sh` (and `setup_tasks.py`) instead of upstream's `check-prerequisites.sh`. This implies a dedicated setup flow for tasks.
+**No divergence found.** The actual `templates/commands/tasks.md` references `scripts/bash/check-prerequisites.sh`, identical to upstream. No dedicated `setup-tasks.sh` or `setup_tasks.py` scripts exist in this repo.
 
-**Cherry-pick recommendation**: Verify `setup-tasks.sh` and `setup_tasks.py` exist and document why they diverge from the upstream prerequisite checker. If the dedicated scripts provide better task scaffolding, contribute them upstream with the script reference change.
+**Action**: No upstream contribution needed for this file; the templates are aligned.
 
 ## 5. `taskstoissues.md` — `list_issues` MCP Tool
 
-**fellowship-dev addition.** fellowship-dev adds `github/github-mcp-server/list_issues` to the tools list. Upstream only has `issue_write`. The addition enables duplicate-detection before creating issues.
+**Upstream addition fellowship-dev should adopt.** Upstream `github/spec-kit` (via upstream PR #2992) adds `github/github-mcp-server/list_issues` to the tools list, enabling duplicate-detection before creating issues. fellowship-dev/spec-kit currently only has `issue_write` and does not yet include `list_issues`.
 
-**Cherry-pick recommendation**: Prevents duplicate GitHub issues during tasks-to-issues runs — a clear quality improvement. Open a PR to `github/spec-kit`.
+**Cherry-pick recommendation**: Cherry-pick `list_issues` FROM `github/spec-kit` INTO fellowship-dev/spec-kit. This upstream improvement prevents duplicate GitHub issues during tasks-to-issues runs — a clear quality improvement that fellowship-dev should adopt.
 
 ## Action Items
 
 - [ ] Contribute extension hook system documentation to `github/spec-kit`
 - [ ] Contribute `checklist.md` quality dimension improvements upstream
 - [ ] Contribute `constitution.md` scope guard upstream
-- [ ] Clarify/contribute `tasks.md` dedicated setup script divergence
-- [ ] Contribute `taskstoissues.md` `list_issues` tool addition upstream
+- [ ] `tasks.md` — no action needed (templates already aligned with upstream)
+- [ ] Cherry-pick `list_issues` MCP tool FROM `github/spec-kit` INTO fellowship-dev/spec-kit
